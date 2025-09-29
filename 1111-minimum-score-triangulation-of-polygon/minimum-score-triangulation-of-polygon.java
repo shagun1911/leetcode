@@ -1,21 +1,28 @@
+
 class Solution {
+    
     public int minScoreTriangulation(int[] values) {
         int n = values.length;
-        int[][] dp = new int[n][n];
+        int dp[][] = new int[n][n];
+        for (int i=0;i<n;i++) Arrays.fill(dp[i],-1);
+        return helper_min_score(1,n-1,values,dp);
+    }
+    
+    private int helper_min_score(int i,int j,int values[], int dp[][]){
+        if (i == j) return 0;
         
+        if (dp[i][j] != -1) return dp[i][j];
         
-        for (int len = 2; len < n; len++) { 
-            for (int i = 0; i + len < n; i++) {
-                int j = i + len;
-                dp[i][j] = Integer.MAX_VALUE;
-                for (int k = i + 1; k < j; k++) {
-                    int cost = values[i] * values[k] * values[j] 
-                               + dp[i][k] + dp[k][j];
-                    dp[i][j] = Math.min(dp[i][j], cost);
-                }
-            }
+        int mini = Integer.MAX_VALUE;
+     
+    
+        for (int k=i;k<=j-1;k++){
+            int steps = values[i-1] * values[k] * values[j]
+                + helper_min_score(i,k,values, dp)
+                + helper_min_score(k+1,j,values,dp);
+            mini = Math.min(steps,mini);
         }
         
-        return dp[0][n - 1];
+        return dp[i][j] = mini;
     }
 }
