@@ -9,6 +9,9 @@ class Solution {
             res[a] = nums[i];
             i++;
             a++;
+            if(a == 2){
+                break;
+            }
           }
        }
 
