@@ -7,7 +7,7 @@ class Solution {
         for (char ch : s.toCharArray()) {
             if (ch == '1') {
                 count1++;
-                ans = (ans + count1) % M; 
+                ans = (ans + count1)%M; 
             } else count1 = 0;
         }
 
